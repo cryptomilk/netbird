@@ -6,7 +6,9 @@ NETBIRD_REPO := https://coprbe.devel.redhat.com/results/jbilling/netbird-testing
 SHELL=/bin/bash
 srpm:
 	set -ex
+ifneq ($(skip_deps),1)
 	dnf --repofrompath=netbird,'$(NETBIRD_REPO)' install -y rpmdevtools rpmautospec go-vendor-tools python3-specfile golang-bin gtk4-devel webkitgtk6.0-devel pnpm git golang-wails
+endif
 	rm -rf /tmp/_topdir
 	mkdir -p /tmp/_topdir/SOURCES
 	rpmdev-spectool --gf $(spec)
