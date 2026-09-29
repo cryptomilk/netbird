@@ -4,6 +4,7 @@ NETBIRD_REPO := https://coprbe.devel.redhat.com/results/jbilling/netbird-testing
 
 .ONESHELL:
 SHELL=/bin/bash
+.PHONY: srpm
 srpm:
 	set -ex
 ifneq ($(skip_deps),1)
