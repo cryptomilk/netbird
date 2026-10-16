@@ -11,7 +11,7 @@
 
 # https://github.com/netbirdio/netbird
 %global goipath         github.com/netbirdio/netbird
-%global netbirdversion  0.81.0
+%global netbirdversion  0.81.2
 Version:                %{netbirdversion}
 
 %gometa -L -f
@@ -50,9 +50,6 @@ Source10:        netbird-ui-assets-%{version}.tgz
 # Local updates
 ## Disable the update client check for Fedora package
 Patch01:        Disable-client-version-update-for-Fedora-package.patch
-
-## Retry a failed routed allowed IPs reconcile on the next evaluation
-Patch02:        client-Retry-a-failed-routed-allowed-IPs-reconcile-o.patch
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  selinux-policy-devel
