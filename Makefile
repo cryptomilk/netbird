@@ -12,15 +12,16 @@ srpm:
 	# Go binaries
 	export GOPATH=$(NETBIRD_GOPATH)
 	go_vendor_archive create --config go-vendor-tools.toml netbird.spec
-	pushd client/ui
+	# Extract netbird tarball to build NodeJS bits
+	tar zxf netbird-$(NETBIRD_VERSION).tar.gz
+	pushd netbird-$(NETBIRD_VERSION)/client/ui
 	wails generate bindings -clean=true -ts
 	pushd frontend
 	# install the npm dependencies
 	pnpm install
 	pnpm build
 	popd # frontend
-	popd # client/ui
-	popd # netbird root
+	popd # netbird-root/client/ui
 	# Create Node.js vendored tarball
 	tar zcf netbird-ui-assets-$(NETBIRD_VERSION).tgz -C netbird-$(NETBIRD_VERSION)/client/ui/frontend dist
 	cp netbird*.tar.gz netbird*.tar.bz2 go-vendor-tools.toml netbird.service netbirdui.service client_config.json netbird.logrotate *.patch netbird.fc netbird.if netbird.te netbird-ui-assets*.tgz /tmp/_topdir/SOURCES/
